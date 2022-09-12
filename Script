@@ -1,0 +1,572 @@
+--WhiteListed--
+----------------------------------------------------------------------------------------------------------------------------------
+--WHiteListPlayer --
+local player = game.Players.LocalPlayer
+
+local WhitelistedIds =
+{
+    29633487325,
+    4352345324
+}
+
+if table.find(WhitelistedIds, player.UserId) then
+    print("Thanks You For Buying")
+else
+        player:Kick("NICE TRY")
+end
+
+--Gui Setting's--
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Hizro Paid Gui", "GrapeTheme")
+----------------------------------------------------------------------------------------------------------------------------------
+--Tab Main--
+local Tab = Window:NewTab("Main")
+local Section = Tab:NewSection("Main")
+----------------------------------------------------------------------------------------------------------------------------------
+--Esp--
+Section:NewButton("Esp", "Shows Players Behind Walls", function()
+    local RunService = game:GetService("RunService")
+ 
+_G.chamesp = true
+ 
+local function esp(v)
+
+if _G.chamesp == false then return end
+
+local PlayerName = nil
+
+    if v:FindFirstChild("Head"):FindFirstChild("Nametag") then
+        PlayerName = v.Head.Nametag.tag.Text
+    else
+        PlayerName = "Head"
+    end
+
+    local bax = v:FindFirstChild("Head")
+
+    local chams_box = Instance.new("BoxHandleAdornment", bax)
+    chams_box.Name = "Chams"
+    chams_box.AlwaysOnTop = true
+    chams_box.ZIndex = 4
+    chams_box.Adornee = bax
+    chams_box.Color3 = Color3.fromRGB(128,49,167)
+    chams_box.Transparency = 0
+    chams_box.Size = Vector3.new(1.5,1,1)
+
+    local BillboardGui = Instance.new("BillboardGui", bax)
+    local TextLabel = Instance.new("TextLabel", BillboardGui)
+
+    BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    BillboardGui.AlwaysOnTop = true
+    BillboardGui.Size = UDim2.new(0, 80, 0, 20) 
+
+    TextLabel.Parent = BillboardGui
+    TextLabel.BackgroundColor3 = Color3.fromRGB(128,49,167)
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Size = UDim2.new(0, 80, 0, 20)
+    TextLabel.Font = Enum.Font.Code
+    TextLabel.Text = PlayerName
+    TextLabel.TextColor3 = Color3.fromRGB(128,49,167)
+    TextLabel.TextSize = 10
+end
+
+while true do
+for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+    if v:FindFirstChild("Head") then 
+        if not v:FindFirstChild("Head"):FindFirstChild("Chams") then
+            esp(v)
+        end
+    end
+end
+wait()
+end
+end)
+
+
+--Tab Misc--
+local Tab = Window:NewTab("Misc")
+local Section = Tab:NewSection("Misc")
+----------------------------------------------------------------------------------------------------------------------------------
+--FovChanger Botton--
+Section:NewButton("FovChanger", "Changes You Fov", function()
+    game:GetService("RunService").RenderStepped:Connect(function()
+        game:GetService("Workspace").CurrentCamera.FieldOfView = 100
+        end)
+end)
+--SoftWall Button--
+Section:NewButton("WallEsp", "T=Tranpant U=WallEsp K=WallEsp Undo", function()
+    local player = game:GetService("Players").LocalPlayer
+local mouse = player:GetMouse()
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Y then
+        if mouse.Target.Parent.Name == "Workspace" or mouse.Target.Parent.Name ~= "Model" then return end
+        for i,v in pairs(mouse.Target.Parent:GetDescendants()) do
+            if v.Name == "Hitbox" then
+                if v.Parent:FindFirstChild("WEAKSIDE") then
+                    v.Size = v.Parent.WEAKSIDE.Size
+                    v.CFrame = v.Parent.WEAKSIDE.CFrame
+                    v.Position = v.Position + v.Parent.WEAKSIDE.CFrame.LookVector * -0.15
+                    v.Transparency = 0.75
+
+                end
+            end
+        end
+    end
+end)
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Y then
+        if mouse.Target.Parent.Name == "Workspace" or mouse.Target.Parent.Name ~= "Model" then return end
+        for i,v in pairs(mouse.Target.Parent:GetDescendants()) do
+            if v.Name == "Hitbox" then
+                if v.Parent:FindFirstChild("Union") then
+
+                    v.Size = v.Parent.Union.Size - Vector3.new(0.25,0.25,0.25)
+                    v.CFrame = v.Parent.Wall.CFrame
+                    v.Position = v.Position + v.Parent.Wall.CFrame.LookVector * -0.4
+                    v.Transparency = 0.75
+
+                end
+            end
+        end
+    end
+end)
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.T then
+        if mouse.Target.Parent.Name == "Workspace" or mouse.Target.Parent.Name ~= "Model" then return end
+        for i,v in pairs(mouse.Target.Parent:GetDescendants()) do
+            if v.Parent:FindFirstChild("Hitbox") then
+                if v.Parent:FindFirstChild("Union") or v.Parent:FindFirstChild("WEAKSIDE") then
+                v.Transparency = 0.85
+                end
+            end
+        end
+    end
+end)
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.U then
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Name == "Hitbox" then
+                if v.Parent:FindFirstChild("WEAKSIDE") or v.Parent:FindFirstChild("Union") then
+                    local chams_box = Instance.new("BoxHandleAdornment", v)
+                    chams_box.Name = "Chams"
+                    chams_box.AlwaysOnTop = true
+                    chams_box.ZIndex = -1
+                    chams_box.Adornee = v
+                    chams_box.Color3 = Color3.fromRGB(25, 25, 250)
+                    chams_box.Transparency = 0.85
+                    chams_box.Size = v.Size / 1.05
+
+                    local chams_box = Instance.new("BoxHandleAdornment", v)
+                    chams_box.Name = "Chams"
+                    chams_box.AlwaysOnTop = true
+                    chams_box.ZIndex = 3
+                    chams_box.Adornee = v
+                    chams_box.Color3 = Color3.fromRGB(0, 20, 200)
+                    chams_box.Transparency = 0.925
+                    chams_box.Size = v.Size
+                end
+            end
+        end
+    end
+end)
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.K then
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Name == "Chams" then
+                v:Destroy()
+            end
+        end
+    end
+end)
+end)
+----------------------------------------------------------------------------------------------------------------------------------
+Section:NewButton("AntiAimbot", "People Who Use Aimbot Cant lock On You", function()
+    
+end)
+----------------------------------------------------------------------------------------------------------------------------------
+Section:NewButton("Admin/Mod protection", "Tells You If A Mods In The Game", function()
+    
+end)
+----------------------------------------------------------------------------------------------------------------------------------
+--CrossHair Botton--
+Section:NewButton("CrossHair", "Puts A Cross Hair on Sceen", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/WDCdmAE7"))()
+end)
+----------------------------------------------------------------------------------------------------------------------------------
+--AntiAfk Botton--
+Section:NewButton("AntiAfk", "Does Not Kick You", function()
+    -- been quite a while, wanted to post something good so here ya go --
+local VirtualUser=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
+
+end)
+----------------------------------------------------------------------------------------------------------------------------------
+Section:NewButton("BoostFps", "Boosts Fps ", function()
+    local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+t.WaterWaveSize = 0
+t.WaterWaveSpeed = 0
+t.WaterReflectance = 0
+t.WaterTransparency = 0
+l.GlobalShadows = false
+l.FogEnd = 9e9
+l.Brightness = 0
+settings().Rendering.QualityLevel = "Level01"
+for i,v in pairs(g:GetDescendants()) do
+    if v:IsA("Part") or v:IsA("Union") or v:IsA("MeshPart") then
+        v.Material = "Plastic"
+v.Reflectance = 0
+elseif v:IsA("Decal") and decalsyeeted then 
+v.Transparency = 1
+elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then 
+v.Lifetime = NumberRange.new(0)
+    end
+end
+end)
+------------------------------------------------------------------------------------------------------------------------------------FullBright Botton--
+Section:NewButton("FullBright", "Turns Night in Dark Inf", function()
+    -- FULLBRIGHT by Sinner
+pcall(function()
+	local lighting = game:GetService("Lighting");
+	lighting.Ambient = Color3.fromRGB(255, 255, 255);
+	lighting.Brightness = 1;
+	lighting.FogEnd = 1e10;
+	for i, v in pairs(lighting:GetDescendants()) do
+		if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") then
+			v.Enabled = false;
+		end;
+	end;
+	lighting.Changed:Connect(function()
+		lighting.Ambient = Color3.fromRGB(255, 255, 255);
+		lighting.Brightness = 1;
+		lighting.FogEnd = 1e10;
+	end);
+	spawn(function()
+		local character = game:GetService("Players").LocalPlayer.Character;
+		while wait() do
+			repeat wait() until character ~= nil;
+			if not character.HumanoidRootPart:FindFirstChildWhichIsA("PointLight") then
+				local headlight = Instance.new("PointLight", character.HumanoidRootPart);
+				headlight.Brightness = 1;
+				headlight.Range = 60;
+			end;
+		end;
+	end);
+end)
+end)
+----------------------------------------------------------------------------------------------------------------------------------
+--Tab SkyChanger--
+local Tab = Window:NewTab("SkyChanger")
+local Section = Tab:NewSection("SkyChanger")
+----------------------------------------------------------------------------------------------------------------------------------
+--City SkyChanger--
+Section:NewButton("NeonCity", "Changes The Id Of Sky", function()
+    c = script:Clone()
+c.Parent = game.Lighting
+s = Instance.new("Sky")
+s.Name = "loltroll"
+s.SkyboxBk = "rbxassetid://2176109632" ------- 
+s.SkyboxDn = "rbxassetid://1181585971" -------
+s.SkyboxFt = "rbxassetid://2176109632" ------ Decal id
+s.SkyboxLf = "rbxassetid://2176109632" --------
+s.SkyboxRt = "rbxassetid://2176109632" ---------
+s.SkyboxUp = "rbxassetid://2176110058" --------
+s.Parent = game.Lighting
+ 
+while true do
+wait(0.225555)
+t = game.Teams:GetChildren()
+for i = 1, #t do
+if t[i] == true then
+t[i].Name = math.random()
+end
+end
+p = game.Players:GetChildren()
+for i = 1, #p do
+o = p[i].Character:GetChildren()
+for i = 1, #o do
+if o[i].ClassName == "Part" then
+q = Instance.new("SpecialMesh", o[i])
+q.MeshType = math.random(1,11)
+end
+end
+end
+w = game.Workspace:GetChildren()
+for i = 1, #w do
+if w[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+elseif w[i].ClassName == "Model" then
+mo = w[i]:GetChildren()
+for i = 1, #mo do
+if mo[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+end
+end
+end
+end
+end
+end) 
+----------------------------------------------------------------------------------------------------------------------------------
+--Among Us Sky--
+Section:NewButton("Among Us Sky", "Changes The Id Of Sky", function()
+    c = script:Clone()
+c.Parent = game.Lighting
+s = Instance.new("Sky")
+s.Name = "loltroll"
+s.SkyboxBk = "rbxassetid://8905181344" ------- 
+s.SkyboxDn = "rbxassetid://8905181344" -------
+s.SkyboxFt = "rbxassetid://8905181344" ------ Decal id
+s.SkyboxLf = "rbxassetid://8905181344" --------
+s.SkyboxRt = "rbxassetid://8905181344" ---------
+s.SkyboxUp = "rbxassetid://8905181344" --------
+s.Parent = game.Lighting
+ 
+while true do
+wait(0.225555)
+t = game.Teams:GetChildren()
+for i = 1, #t do
+if t[i] == true then
+t[i].Name = math.random()
+end
+end
+p = game.Players:GetChildren()
+for i = 1, #p do
+o = p[i].Character:GetChildren()
+for i = 1, #o do
+if o[i].ClassName == "Part" then
+q = Instance.new("SpecialMesh", o[i])
+q.MeshType = math.random(1,11)
+end
+end
+end
+w = game.Workspace:GetChildren()
+for i = 1, #w do
+if w[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+elseif w[i].ClassName == "Model" then
+mo = w[i]:GetChildren()
+for i = 1, #mo do
+if mo[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+end
+end
+end
+end
+end
+end) 
+----------------------------------------------------------------------------------------------------------------------------------
+--Anime Sky--
+Section:NewButton("Anime Sky", "Changes The Id Of Sky", function()
+    c = script:Clone()
+c.Parent = game.Lighting
+s = Instance.new("Sky")
+s.Name = "loltroll"
+s.SkyboxBk = "rbxassetid://7643700666" ------- 
+s.SkyboxDn = "rbxassetid://7643743687" -------
+s.SkyboxFt = "rbxassetid://7644304186" ------ Decal id
+s.SkyboxLf = "rbxassetid://7644288724" --------
+s.SkyboxRt = "rbxassetid://7643700819" ---------
+s.SkyboxUp = "rbxassetid://7643757404" --------
+s.Parent = game.Lighting
+ 
+while true do
+wait(0.225555)
+t = game.Teams:GetChildren()
+for i = 1, #t do
+if t[i] == true then
+t[i].Name = math.random()
+end
+end
+p = game.Players:GetChildren()
+for i = 1, #p do
+o = p[i].Character:GetChildren()
+for i = 1, #o do
+if o[i].ClassName == "Part" then
+q = Instance.new("SpecialMesh", o[i])
+q.MeshType = math.random(1,11)
+end
+end
+end
+w = game.Workspace:GetChildren()
+for i = 1, #w do
+if w[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+elseif w[i].ClassName == "Model" then
+mo = w[i]:GetChildren()
+for i = 1, #mo do
+if mo[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+end
+end
+end
+end
+end
+end) 
+----------------------------------------------------------------------------------------------------------------------------------
+--Volcanoe Sky--
+Section:NewButton("Volcanoe Sky", "Changes The Id Of Sky", function()
+    c = script:Clone()
+c.Parent = game.Lighting
+s = Instance.new("Sky")
+s.Name = "loltroll"
+s.SkyboxBk = "http://www.roblox.com/asset/?id=150281446" ------- 
+s.SkyboxDn = "http://www.roblox.com/asset/?id=150281418" -------
+s.SkyboxFt = "http://www.roblox.com/asset/?id=150281461" ------ Decal id
+s.SkyboxLf = "http://www.roblox.com/asset/?id=150281400" --------
+s.SkyboxRt = "http://www.roblox.com/asset/?id=150281426" ---------
+s.SkyboxUp = "http://www.roblox.com/asset/?id=150281471" --------
+s.Parent = game.Lighting
+ 
+while true do
+wait(0.225555)
+t = game.Teams:GetChildren()
+for i = 1, #t do
+if t[i] == true then
+t[i].Name = math.random()
+end
+end
+p = game.Players:GetChildren()
+for i = 1, #p do
+o = p[i].Character:GetChildren()
+for i = 1, #o do
+if o[i].ClassName == "Part" then
+q = Instance.new("SpecialMesh", o[i])
+q.MeshType = math.random(1,11)
+end
+end
+end
+w = game.Workspace:GetChildren()
+for i = 1, #w do
+if w[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+elseif w[i].ClassName == "Model" then
+mo = w[i]:GetChildren()
+for i = 1, #mo do
+if mo[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+end
+end
+end
+end
+end
+end) 
+----------------------------------------------------------------------------------------------------------------------------------
+--Obby Sky--
+Section:NewButton("Obby Sky", "Changes The Id Of Sky", function()
+    c = script:Clone()
+c.Parent = game.Lighting
+s = Instance.new("Sky")
+s.Name = "loltroll"
+s.SkyboxBk = "rbxassetid://1194117595" ------- 
+s.SkyboxDn = "rbxassetid://724361046" -------
+s.SkyboxFt = "rbxassetid://1194117232" ------ Decal id
+s.SkyboxLf = "rbxassetid://1194117595" --------
+s.SkyboxRt = "rbxassetid://1194117232" ---------
+s.SkyboxUp = "rbxassetid://1194119030" --------
+s.Parent = game.Lighting
+ 
+while true do
+wait(0.225555)
+t = game.Teams:GetChildren()
+for i = 1, #t do
+if t[i] == true then
+t[i].Name = math.random()
+end
+end
+p = game.Players:GetChildren()
+for i = 1, #p do
+o = p[i].Character:GetChildren()
+for i = 1, #o do
+if o[i].ClassName == "Part" then
+q = Instance.new("SpecialMesh", o[i])
+q.MeshType = math.random(1,11)
+end
+end
+end
+w = game.Workspace:GetChildren()
+for i = 1, #w do
+if w[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+elseif w[i].ClassName == "Model" then
+mo = w[i]:GetChildren()
+for i = 1, #mo do
+if mo[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+end
+end
+end
+end
+end
+end) 
+----------------------------------------------------------------------------------------------------------------------------------
+--Obama Sky--
+Section:NewButton("Obama Sky", "Changes The Id Of Sky", function()
+    c = script:Clone()
+c.Parent = game.Lighting
+s = Instance.new("Sky")
+s.Name = "loltroll"
+s.SkyboxBk = "rbxassetid://632395634" ------- 
+s.SkyboxDn = "rbxassetid://632395634" -------
+s.SkyboxFt = "rbxassetid://632395634" ------ Decal id
+s.SkyboxLf = "rbxassetid://632395634" --------
+s.SkyboxRt = "rbxassetid://632395634" ---------
+s.SkyboxUp = "rbxassetid://632395634    " --------
+s.Parent = game.Lighting
+ 
+while true do
+wait(0.225555)
+t = game.Teams:GetChildren()
+for i = 1, #t do
+if t[i] == true then
+t[i].Name = math.random()
+end
+end
+p = game.Players:GetChildren()
+for i = 1, #p do
+o = p[i].Character:GetChildren()
+for i = 1, #o do
+if o[i].ClassName == "Part" then
+q = Instance.new("SpecialMesh", o[i])
+q.MeshType = math.random(1,11)
+end
+end
+end
+w = game.Workspace:GetChildren()
+for i = 1, #w do
+if w[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+elseif w[i].ClassName == "Model" then
+mo = w[i]:GetChildren()
+for i = 1, #mo do
+if mo[i].ClassName == "Part" then
+m = Instance.new("SpecialMesh", w[i])
+m.MeshType = math.random(1,11)
+end
+end
+end
+end
+end
+end)   
